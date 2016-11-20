@@ -5,6 +5,13 @@ A small library that helps you transform JSONApi server responses into objects.
 Note: this gem is not intended to create valid JSON Api payload to send to a server.
 If you have this need, feel free to contribute.
 
+## Installation
+
+Add this line to your Gemfile:
+
+```
+gem 'motion-json-api'
+```
 
 ## Usage
 
