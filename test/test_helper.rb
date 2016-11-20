@@ -1,0 +1,6 @@
+require 'pp'
+require 'minitest/autorun'
+require './lib/motion-json-api.rb'
+require 'resources/user_resource.rb'
+require 'resources/service_resource.rb'
+require 'resources/contribution_resource.rb'
