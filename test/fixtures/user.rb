@@ -13,7 +13,13 @@ def user
           "data" => [{
             "id" => "1d5cb360-f546-46a6-b6fa-112b7ee8a0e2",
             "type" => "services"
-          }]
+          }],
+        },
+        "xfavorites" => {
+          "data" => [{
+            "id" => "1d5cb360-f546-46a6-b6fa-112b7ee8a0e2",
+            "type" => "services"
+          }],
         },
         "contributions" => {
           "data" => []
@@ -22,6 +28,7 @@ def user
       "type" => "users",
       "attributes" => {
         "name" => "joffrey",
+        "xname" => "xjoffrey"
       }
     }, "included" => [{
       "id" => "1d5cb360-f546-46a6-b6fa-112b7ee8a0e2",
@@ -36,6 +43,12 @@ def user
           "data" => nil
         },
         "recent_contribution" => {
+          "data" => {
+            "id" => "afa453fe-403b-4e59-82c1-4aeaef5fa5a5",
+            "type" => "contributions"
+          }
+        },
+        "xrecent_contribution" => {
           "data" => {
             "id" => "afa453fe-403b-4e59-82c1-4aeaef5fa5a5",
             "type" => "contributions"

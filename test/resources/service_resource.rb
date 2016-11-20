@@ -4,4 +4,5 @@ class ServiceResource < MotionJsonApi::Resource
   attribute :title
 
   has_one :recent_contribution
+  has_one :xrecent_contribution, key: "recent"
 end

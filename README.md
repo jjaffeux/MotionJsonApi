@@ -22,6 +22,7 @@ class User < MotionJsonApi::Resource
   resource_type :users
 
   attribute :name
+  attribute :profile_name, key: :username
 
   has_one :blog
 end
@@ -39,13 +40,14 @@ class Article < MotionJsonApi::Resource
   attribute :title
   attribute :body
 
-  has_one :user, as: :author
+  has_one :user
 end
 
 resource = MotionJsonApi.parse(server_response)
 
 resource.user
 resource.user.name
+resource.user.username
 resource.user.blog
 resource.user.blog.title
 resource.user.blog.articles

@@ -3,5 +3,5 @@ class ContributionResource < MotionJsonApi::Resource
 
   attribute :wait
 
-  has_one :user, as: :author
+  has_one :author
 end

@@ -33,16 +33,17 @@ module MotionJsonApi
       @_resource_type
     end
 
-    def self.attribute(attribute)
-      define_method(attribute) do
+    def self.attribute(attribute, options = {})
+      key = options.fetch(:key, attribute)
+      define_method(key) do
         self.attributes.fetch(attribute.to_s)
       end
     end
 
     def self.has_one(relation, options = {})
-      key = options.fetch(:as, relation).to_s
+      key = options.fetch(:key, relation)
       define_method(key) do
-        relationship = self.relationships.fetch(key)
+        relationship = self.relationships.fetch(relation.to_s)
 
         data = relationship.fetch("data")
         if data
@@ -56,9 +57,9 @@ module MotionJsonApi
     end
 
     def self.has_many(relation, options = {})
-      key = options.fetch(:as, relation).to_s
+      key = options.fetch(:key, relation)
       define_method(key) do
-        relationship = self.relationships.fetch(key)
+        relationship = self.relationships.fetch(relation.to_s)
         relationship.fetch("data").map do |data|
           object = _find_in_included(data["id"], data["type"])
           Resource._object_handler({"data" => object}, self.top_level, self.included)

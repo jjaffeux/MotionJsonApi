@@ -14,9 +14,16 @@ class SingleResourceTest < Minitest::Test
     assert_equal(@subject.id, "36ffe4bf-85d6-45d2-8c41-7998c34cafcd")
   end
 
-  def test_as
-    user = @subject.favorites.first.recent_contribution.author
-    assert_equal(user.class, UserResource)
+  def test_has_many_key
+    assert_equal(@subject.bestof.first.class, ServiceResource)
+  end
+
+  def test_has_one_key
+    assert_equal(@subject.favorites.first.recent.class, ContributionResource)
+  end
+
+  def test_attribute_key
+    assert_equal(@subject.username, "xjoffrey")
   end
 
   def test_has_many
