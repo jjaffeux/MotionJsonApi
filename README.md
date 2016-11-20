@@ -36,12 +36,18 @@ class Article < MotionJsonApi::Resource
 end
 
 resource = MotionJsonApi.parse(server_response)
+
 resource.user
 resource.user.name
 resource.user.blog
 resource.user.blog.title
 resource.user.blog.articles
 resource.user.blog.articles.first.author
+
+resource.links
+resource.meta
+
+resource.user.links
 ```
 
 ## Run tests
