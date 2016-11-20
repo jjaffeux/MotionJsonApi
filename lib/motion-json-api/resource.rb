@@ -1,5 +1,11 @@
 module MotionJsonApi
+  def self.parse(json)
+    Resource._object_handler(json, json.fetch("data", []), json.fetch("included", []))
+  end
+
   class Resource
+    extend Descendants
+
     attr_accessor :id
     attr_accessor :attributes
     attr_accessor :relationships
@@ -37,10 +43,15 @@ module MotionJsonApi
       key = options.fetch(:as, relation).to_s
       define_method(key) do
         relationship = self.relationships.fetch(key)
+
         data = relationship.fetch("data")
-        object = _find_in_included(data["id"], data["type"])
-        payload = {"data" => object, "links" => relationship.fetch("links", {})}
-        Resource._object_handler(payload, self.top_level, self.included)
+        if data
+          object = _find_in_included(data["id"], data["type"])
+          payload = {"data" => object, "links" => relationship.fetch("links", {})}
+          Resource._object_handler(payload, self.top_level, self.included)
+        else
+          nil
+        end
       end
     end
 
@@ -78,12 +89,13 @@ module MotionJsonApi
     end
 
     def self._descendants
-      ObjectSpace.each_object(Class).select { |klass| klass < self }
+      Resource.descendants
     end
 
     def self._object_handler(object, top_level, included = nil)
       included ||= self.included || object.fetch("included", [])
-      top_level ||= self.top_level || [object["data"]].flatten
+      top_level ||= self.top_level || object["data"]
+      top_level = [top_level].flatten
 
       case object["data"]
       when Array
