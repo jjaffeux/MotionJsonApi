@@ -16,8 +16,8 @@ module MotionJsonApi
 
     def initialize(object, top_level = [], included = [])
       @id = object["data"]["id"]
-      @attributes = object["data"]["attributes"]
-      @relationships = object["data"]["relationships"]
+      @attributes = object["data"].fetch("attributes", {})
+      @relationships = object["data"].fetch("relationships", {})
       @meta = object.fetch("meta", {})
       @links = object.fetch("links", {})
       @top_level = top_level
