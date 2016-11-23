@@ -58,4 +58,9 @@ class SingleResourceTest < Minitest::Test
     author = @subject.favorites.first.recent_contribution.author
     assert_equal({"self"=>"/users/44c9905d-5faa-4755-9851-9b8ff5d38fda"}, author.links)
   end
+
+  def test_relationship_meta
+    meta = @subject.favorites.first.meta
+    assert_equal({"some_count" => 1}, meta)
+  end
 end

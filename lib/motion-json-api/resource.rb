@@ -18,7 +18,9 @@ module MotionJsonApi
       @id = object["data"]["id"]
       @attributes = object["data"].fetch("attributes", {})
       @relationships = object["data"].fetch("relationships", {})
-      @meta = object.fetch("meta", {})
+      @meta = object.fetch("meta") do
+        object["data"].fetch("meta", {})
+      end
       @links = object.fetch("links", {})
       @top_level = top_level
       @included = included
@@ -104,7 +106,6 @@ module MotionJsonApi
       included ||= self.included || object.fetch("included", [])
       top_level ||= self.top_level || object["data"]
       top_level = [top_level].flatten
-
       case object["data"]
       when Array
         return object["data"].map do |data|

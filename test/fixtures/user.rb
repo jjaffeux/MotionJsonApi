@@ -67,6 +67,9 @@ def user
       "type" => "services",
       "attributes" => {
         "title" => "Le Kiez"
+      },
+      "meta" => {
+        "some_count" => 1
       }
     }, {
       "id" => "afa453fe-403b-4e59-82c1-4aeaef5fa5a5",
