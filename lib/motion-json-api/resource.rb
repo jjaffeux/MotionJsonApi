@@ -38,20 +38,16 @@ module MotionJsonApi
     def self.attribute(attribute, options = {})
       key = options.fetch(:key, attribute)
       define_method(key) do
-        self.attributes.fetch(attribute.to_s) do
-          raise UndefinedAttribute, "Couldn't find attribute:`#{attribute}` in #{self.attributes}"
-        end
+        self.attributes.fetch(attribute.to_s, nil)
       end
     end
 
     def self.has_one(relation, options = {})
       key = options.fetch(:key, relation)
       define_method(key) do
-        relationship = self.relationships.fetch(relation.to_s) do
-          raise UndefinedHasOneRelation, "Couldn't find relation:`#{relation}` in #{self.relationships}"
-        end
+        relationship = self.relationships.fetch(relation.to_s, {})
 
-        data = relationship.fetch("data")
+        data = relationship.fetch("data", nil)
         if data
           object = _find_in_included(data["id"], data["type"])
           payload = {"data" => object, "links" => relationship.fetch("links", {})}
@@ -65,11 +61,8 @@ module MotionJsonApi
     def self.has_many(relation, options = {})
       key = options.fetch(:key, relation)
       define_method(key) do
-        relationship = self.relationships.fetch(relation.to_s) do
-          raise UndefinedHasManyRelation, "Couldn't find relation:`#{relation}` in #{self.relationships}"
-        end
-
-        relationship.fetch("data").map do |data|
+        relationship = self.relationships.fetch(relation.to_s, {})
+        relationship.fetch("data", []).map do |data|
           object = _find_in_included(data["id"], data["type"])
           Resource._object_handler({"data" => object}, self.top_level, self.included)
         end
