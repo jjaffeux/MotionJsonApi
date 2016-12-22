@@ -101,10 +101,7 @@ module MotionJsonApi
       top_level = [top_level].flatten
       case object["data"]
       when Array
-        return object["data"].map do |data|
-          resource_klass = Resource._klass_for_type(data["type"])
-          resource_klass.new({"data" => data}, top_level, included)
-        end
+        return Resources.new(object, top_level, included)
       when Hash
         resource_klass = Resource._klass_for_type(object["data"]["type"])
         resource_klass.new(object, top_level, included)

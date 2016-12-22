@@ -59,6 +59,12 @@ resource.meta
 resource.user.links
 ```
 
+If the answer is an array, you will get a `Resources` object, which has at the moment
+two attributes:
+
+- data (an array of `Resource`)
+- links
+
 ## Run tests
 
 ```

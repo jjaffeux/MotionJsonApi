@@ -8,4 +8,5 @@ else
   require 'motion-json-api/exceptions'
   require 'motion-json-api/descendants'
   require 'motion-json-api/resource'
+  require 'motion-json-api/resources'
 end
