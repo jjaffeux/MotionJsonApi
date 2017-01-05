@@ -23,6 +23,12 @@ def user
         },
         "contributions" => {
           "data" => []
+        },
+        "friend" => {
+          "data" => {
+            "id" => "4e6774fc-1b7b-4896-8b3c-5b577e1ed24b",
+            "type" => "friends"
+          }
         }
       },
       "type" => "users",
@@ -34,7 +40,12 @@ def user
       "id" => "1d5cb360-f546-46a6-b6fa-112b7ee8a0e2",
       "relationships" => {
         "urls" => {
-          "data" => []
+          "data" => [
+            {
+              "id" => "d09c59b1-b8fe-46a3-94b6-3ad9e9186fd3",
+              "type" => "urls"
+            }
+          ]
         },
         "addresses" => {
           "data" => []

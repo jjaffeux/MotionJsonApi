@@ -4,6 +4,8 @@ class UserResource < MotionJsonApi::Resource
   attribute :name
   attribute :xname, key: "username"
 
+  has_one :friend
+
   has_many :favorites
   has_many :xfavorites, key: "bestof"
 end

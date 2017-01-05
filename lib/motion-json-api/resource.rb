@@ -50,8 +50,12 @@ module MotionJsonApi
         data = relationship.fetch("data", nil)
         if data
           object = _find_in_included(data["id"], data["type"])
-          payload = {"data" => object, "links" => relationship.fetch("links", {})}
-          Resource._object_handler(payload, self.top_level, self.included)
+          if object
+            payload = {"data" => object, "links" => relationship.fetch("links", {})}
+            Resource._object_handler(payload, self.top_level, self.included)
+          else
+            {"id" => data["id"], "type" => data["type"]}
+          end
         else
           nil
         end
@@ -64,7 +68,12 @@ module MotionJsonApi
         relationship = self.relationships.fetch(relation.to_s, {})
         relationship.fetch("data", []).map do |data|
           object = _find_in_included(data["id"], data["type"])
-          Resource._object_handler({"data" => object}, self.top_level, self.included)
+
+          if object
+            Resource._object_handler({"data" => object}, self.top_level, self.included)
+          else
+            {"id" => data["id"], "type" => data["type"]}
+          end
         end
       end
     end
