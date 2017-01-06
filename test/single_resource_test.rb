@@ -1,11 +1,12 @@
 require 'test_helper'
 require 'fixtures/user'
+require 'fixtures/activity'
 
 class SingleResourceTest < Minitest::Test
   def setup
     @subject = MotionJsonApi.parse(user)
   end
-
+  
   def test_attribute
     assert_equal(@subject.name, "joffrey")
   end
@@ -52,6 +53,11 @@ class SingleResourceTest < Minitest::Test
 
   def test_links
     assert_equal({"self"=>"/users?page[number]=3&page[size]=1"}, @subject.links)
+  end
+
+  def test_links
+    res = MotionJsonApi.parse(activity)
+    assert_equal({"self"=>"/activities/ce84420e-b93c-4800-ace9-d4c9a8c39250"}, res.links)
   end
 
   def test_relationship_links

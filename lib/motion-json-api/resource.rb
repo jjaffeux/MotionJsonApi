@@ -21,7 +21,9 @@ module MotionJsonApi
       @meta = object.fetch("meta") do
         object["data"].fetch("meta", {})
       end
-      @links = object.fetch("links", {})
+      @links = object.fetch("links") do
+        object["data"].fetch("links", {})
+      end
       @top_level = top_level
       @included = included
     end
