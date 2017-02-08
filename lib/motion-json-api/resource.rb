@@ -68,13 +68,14 @@ module MotionJsonApi
       key = options.fetch(:key, relation)
       define_method(key) do
         relationship = self.relationships.fetch(relation.to_s, {})
+
         relationship.fetch("data", []).map do |data|
           object = _find_in_included(data["id"], data["type"])
 
           if object
             Resource._object_handler({"data" => object}, self.top_level, self.included)
           else
-            {"id" => data["id"], "type" => data["type"]}
+            Resource._object_handler({"data" => data}, self.top_level, self.included)
           end
         end
       end
