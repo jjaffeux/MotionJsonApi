@@ -48,9 +48,8 @@ module MotionJsonApi
       key = options.fetch(:key, relation)
       define_method(key) do
         relationship = self.relationships.fetch(relation.to_s, {})
-
         data = relationship.fetch("data", nil)
-        if data
+        if data && !data.empty?
           object = _find_in_included(data["id"], data["type"])
           if object
             payload = {"data" => object, "links" => relationship.fetch("links", {})}
