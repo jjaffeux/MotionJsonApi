@@ -28,6 +28,12 @@ module MotionJsonApi
       @included = included
     end
 
+    def set_meta(key, value)
+      if @meta.key?(key)
+        @meta[key] = value
+      end
+    end
+
     @_resource_type = nil
     def self.resource_type(resource_type)
       @_resource_type = resource_type
